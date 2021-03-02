@@ -32,6 +32,14 @@ public class ReadingService {
                 .orElseGet(() -> Either.left(new ErrorInfoDto("No values specified")));
     }
 
+    public Either<List<ErrorInfoDto>, List<Float>> getGoodQualityValuesBetweenDates(LocalDateTime dateFrom, LocalDateTime dateTo) {
+        List<Float> allGoodQualityValuesBetweenDates = readingDao.getAllGoodQualityValuesBetweenDates(dateFrom, dateTo);
+
+        return Objects.nonNull(allGoodQualityValuesBetweenDates)
+                ? Either.right(allGoodQualityValuesBetweenDates)
+                : Either.left(Collections.singletonList(new ErrorInfoDto("No series values specified")));
+    }
+
     public Either<List<ErrorInfoDto>, Float> getAverageValueForCondition(LocalDateTime dateFrom, LocalDateTime dateTo, boolean includedBadQuality) {
         Float averageValueBetweenDate = readingDao.getAverageValueBetweenDate(dateFrom, dateTo, getQualitiesForSearching(includedBadQuality));
 
@@ -44,13 +52,5 @@ public class ReadingService {
         return includeBadQuality
                 ? new HashSet<>(Arrays.asList(Quality.values()))
                 : new HashSet<>(Collections.singletonList(Quality.GOOD));
-    }
-
-    public Either<List<ErrorInfoDto>, List<Float>> getGoodQualityValuesBetweenDates(LocalDateTime dateFrom, LocalDateTime dateTo) {
-        List<Float> allGoodQualityValuesBetweenDates = readingDao.getAllGoodQualityValuesBetweenDates(dateFrom, dateTo);
-
-        return Objects.nonNull(allGoodQualityValuesBetweenDates)
-                ? Either.right(allGoodQualityValuesBetweenDates)
-                : Either.left(Collections.singletonList(new ErrorInfoDto("No series values specified")));
     }
 }
