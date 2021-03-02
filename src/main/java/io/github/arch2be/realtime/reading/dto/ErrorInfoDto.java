@@ -1,4 +1,4 @@
-package io.github.arch2be.realtime.measure.dto;
+package io.github.arch2be.realtime.reading.dto;
 
 public class ErrorInfoDto {
     private String message;

@@ -1,7 +1,7 @@
-package io.github.arch2be.realtime.measure.repository;
+package io.github.arch2be.realtime.reading.repository;
 
-import io.github.arch2be.realtime.measure.entity.Reading;
-import io.github.arch2be.realtime.measure.enums.Quality;
+import io.github.arch2be.realtime.reading.entity.Reading;
+import io.github.arch2be.realtime.reading.enums.Quality;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

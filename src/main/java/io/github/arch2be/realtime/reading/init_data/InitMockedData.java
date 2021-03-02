@@ -1,8 +1,8 @@
-package io.github.arch2be.realtime.measure.init_data;
+package io.github.arch2be.realtime.reading.init_data;
 
-import io.github.arch2be.realtime.measure.enums.Quality;
-import io.github.arch2be.realtime.measure.entity.Reading;
-import io.github.arch2be.realtime.measure.repository.ReadingDao;
+import io.github.arch2be.realtime.reading.enums.Quality;
+import io.github.arch2be.realtime.reading.entity.Reading;
+import io.github.arch2be.realtime.reading.repository.ReadingDao;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;

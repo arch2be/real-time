@@ -1,6 +1,6 @@
-package io.github.arch2be.realtime.measure.controller;
+package io.github.arch2be.realtime.reading.controller;
 
-import io.github.arch2be.realtime.measure.dto.ErrorInfoDto;
+import io.github.arch2be.realtime.reading.dto.ErrorInfoDto;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 class ReadingValidation {
 
-    public List<ErrorInfoDto> validateAverageRequest(ReadingRequest readingRequest) {
+    List<ErrorInfoDto> validateAverageRequest(ReadingRequest readingRequest) {
         List<ErrorInfoDto> errors = new ArrayList<>();
 
         if (readingRequest.getDateFrom().isAfter(readingRequest.getDateTo())) {

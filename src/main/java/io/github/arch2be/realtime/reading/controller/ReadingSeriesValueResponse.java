@@ -1,9 +1,9 @@
-package io.github.arch2be.realtime.measure.controller;
+package io.github.arch2be.realtime.reading.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class ReadingSeriesValueResponse {
+class ReadingSeriesValueResponse {
     private final LocalDateTime dateFrom;
     private final LocalDateTime dateTo;
     private final List<Float> values;

@@ -1,6 +1,6 @@
-package io.github.arch2be.realtime.measure.controller;
+package io.github.arch2be.realtime.reading.controller;
 
-import io.github.arch2be.realtime.measure.dto.ErrorInfoDto;
+import io.github.arch2be.realtime.reading.dto.ErrorInfoDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "/api/measure")
 class ReadingController {
-
     private final ReadingPresenter presenter;
 
     ReadingController(ReadingPresenter presenter) {

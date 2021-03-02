@@ -1,15 +1,13 @@
-package io.github.arch2be.realtime.measure.service;
+package io.github.arch2be.realtime.reading.service;
 
-import io.github.arch2be.realtime.measure.controller.ReadingRequest;
-import io.github.arch2be.realtime.measure.controller.ReadingAverageResponse;
-import io.github.arch2be.realtime.measure.controller.ReadingSeriesValueResponse;
-import io.github.arch2be.realtime.measure.dto.ErrorInfoDto;
-import io.github.arch2be.realtime.measure.dto.ReadingDto;
-import io.github.arch2be.realtime.measure.enums.Quality;
-import io.github.arch2be.realtime.measure.repository.ReadingDao;
+import io.github.arch2be.realtime.reading.dto.ErrorInfoDto;
+import io.github.arch2be.realtime.reading.dto.ReadingDto;
+import io.github.arch2be.realtime.reading.enums.Quality;
+import io.github.arch2be.realtime.reading.repository.ReadingDao;
 import io.vavr.control.Either;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -34,14 +32,11 @@ public class ReadingService {
                 .orElseGet(() -> Either.left(new ErrorInfoDto("No values specified")));
     }
 
-    public Either<List<ErrorInfoDto>, ReadingAverageResponse> getAverageValueForCondition(ReadingRequest readingRequest) {
-        Float averageValueBetweenDate = readingDao.getAverageValueBetweenDate(
-                readingRequest.getDateFrom(),
-                readingRequest.getDateTo(),
-                getQualitiesForSearching(readingRequest.isIncludeBadQuality()));
+    public Either<List<ErrorInfoDto>, Float> getAverageValueForCondition(LocalDateTime dateFrom, LocalDateTime dateTo, boolean includedBadQuality) {
+        Float averageValueBetweenDate = readingDao.getAverageValueBetweenDate(dateFrom, dateTo, getQualitiesForSearching(includedBadQuality));
 
         return Objects.nonNull(averageValueBetweenDate)
-                ? Either.right(new ReadingAverageResponse(averageValueBetweenDate))
+                ? Either.right(averageValueBetweenDate)
                 : Either.left(Collections.singletonList(new ErrorInfoDto("No average value specified")));
     }
 
@@ -51,11 +46,11 @@ public class ReadingService {
                 : new HashSet<>(Collections.singletonList(Quality.GOOD));
     }
 
-    public Either<List<ErrorInfoDto>, ReadingSeriesValueResponse> getGoodQualityValuesBetweenDates(ReadingRequest readingRequest) {
-        List<Float> allGoodQualityValuesBetweenDates = readingDao.getAllGoodQualityValuesBetweenDates(readingRequest.getDateFrom(), readingRequest.getDateTo());
+    public Either<List<ErrorInfoDto>, List<Float>> getGoodQualityValuesBetweenDates(LocalDateTime dateFrom, LocalDateTime dateTo) {
+        List<Float> allGoodQualityValuesBetweenDates = readingDao.getAllGoodQualityValuesBetweenDates(dateFrom, dateTo);
 
         return Objects.nonNull(allGoodQualityValuesBetweenDates)
-                ? Either.right(new ReadingSeriesValueResponse(allGoodQualityValuesBetweenDates, readingRequest.getDateFrom(), readingRequest.getDateTo()))
+                ? Either.right(allGoodQualityValuesBetweenDates)
                 : Either.left(Collections.singletonList(new ErrorInfoDto("No series values specified")));
     }
 }

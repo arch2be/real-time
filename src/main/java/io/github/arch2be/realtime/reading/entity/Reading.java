@@ -1,15 +1,28 @@
-package io.github.arch2be.realtime.measure.dto;
+package io.github.arch2be.realtime.reading.entity;
 
-import io.github.arch2be.realtime.measure.enums.EngineeringUnit;
-import io.github.arch2be.realtime.measure.enums.Quality;
+import io.github.arch2be.realtime.reading.enums.EngineeringUnit;
+import io.github.arch2be.realtime.reading.enums.Quality;
+import org.springframework.data.annotation.PersistenceConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-public class ReadingDto {
+@Entity
+public class Reading {
+
+    @Id
+    @GeneratedValue
+    private Long id;
     private LocalDateTime date;
     private Float value;
+    @Enumerated(EnumType.STRING)
     private EngineeringUnit unit;
+    @Enumerated(EnumType.STRING)
     private Quality quality;
+
+    @PersistenceConstructor
+    public Reading() {
+    }
 
     public LocalDateTime getDate() {
         return date;
@@ -26,7 +39,6 @@ public class ReadingDto {
     public Quality getQuality() {
         return quality;
     }
-
 
     public static final class Builder {
         private LocalDateTime date;
@@ -57,13 +69,13 @@ public class ReadingDto {
             return this;
         }
 
-        public ReadingDto build() {
-            ReadingDto readingDto = new ReadingDto();
-            readingDto.quality = this.quality;
-            readingDto.date = this.date;
-            readingDto.unit = this.unit;
-            readingDto.value = this.value;
-            return readingDto;
+        public Reading build() {
+            Reading reading = new Reading();
+            reading.unit = this.unit;
+            reading.quality = this.quality;
+            reading.date = this.date;
+            reading.value = this.value;
+            return reading;
         }
     }
 }

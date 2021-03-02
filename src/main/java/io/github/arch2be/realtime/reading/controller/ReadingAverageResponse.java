@@ -1,8 +1,7 @@
-package io.github.arch2be.realtime.measure.controller;
+package io.github.arch2be.realtime.reading.controller;
 
-public class ReadingAverageResponse {
-
-    private Float averageValue;
+class ReadingAverageResponse {
+    private final Float averageValue;
 
     public ReadingAverageResponse(Float averageValue) {
         this.averageValue = averageValue;
